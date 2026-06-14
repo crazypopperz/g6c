@@ -1,0 +1,18 @@
+# ─── Web app ──────────────────────────────────────────────────────────────────
+streamlit>=1.35
+
+# ─── Data models ──────────────────────────────────────────────────────────────
+pydantic>=2.0
+
+# ─── Fichiers d'entrée (tableaux de commission) ───────────────────────────────
+openpyxl>=3.1          # xlsx
+odfpy>=1.4             # ods (LibreOffice / OpenOffice)
+xlrd>=2.0              # xls (legacy)
+pdfplumber>=0.10       # pdf texte + tableaux
+pandas>=2.0
+
+# ─── IA extraction ────────────────────────────────────────────────────────────
+mistralai>=1.2.5
+
+# ─── Production des fichiers de sortie ───────────────────────────────────────
+python-docx>=1.1       # synthese.docx
