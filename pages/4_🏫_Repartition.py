@@ -14,8 +14,10 @@ from core.distributor import (
     generer_xlsx_repartition,
     Classe,
 )
+from core.styles import inject_css, page_header
 
 st.set_page_config(page_title="Répartition", page_icon="🏫", layout="wide")
+inject_css()
 
 # ── Initialisation session_state ──────────────────────────────────────────────
 if "classes_noms" not in st.session_state:
@@ -34,9 +36,7 @@ if "classes_result" not in st.session_state:
     st.session_state["classes_result"] = []
 
 # ── En-tête ───────────────────────────────────────────────────────────────────
-st.title("🏫 Répartition des élèves en classes de 6e")
-st.caption("Configurez vos classes, définissez les contraintes et lancez l'algorithme de répartition.")
-st.divider()
+page_header("🏫 Répartition des classes", "Configurez vos classes et lancez l'algorithme de répartition")
 
 # ── Upload du synthese.xlsx ───────────────────────────────────────────────────
 col_upload, col_info = st.columns([3, 1])

@@ -16,11 +16,13 @@ import utils.toast as toast
 from core.file_parser import parse_file
 from core.extractor import extract_from_text
 from core.models import EcoleCommission
+from core.styles import inject_css, page_header
 
 st.set_page_config(page_title="Import · G6C", page_icon="📥", layout="wide")
 init_session()
+inject_css()
 
-st.title("📥 Étape 1 — Import des tableaux de commission")
+page_header("📥 Import des tableaux de commission", "Déposez vos fichiers de commission pour commencer")
 
 # ══════════════════════════════════════════════════════════════════════════════
 col_gauche, sep, col_droite = st.columns([10, 1, 10])

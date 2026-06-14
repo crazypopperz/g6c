@@ -11,11 +11,13 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 from utils.session import init_session, get, set as sset
 import utils.toast as toast
 from core.docx_builder import build_synthese_docx
+from core.styles import inject_css, page_header
 
 st.set_page_config(page_title="Synthèse DOCX · G6C", page_icon="📝", layout="wide")
 init_session()
+inject_css()
 
-st.title("📝 Étape 2 — Génération de synthese.docx")
+page_header("📝 Synthèse DOCX", "Génération du document Word récapitulatif")
 
 commissions = get("commissions")
 

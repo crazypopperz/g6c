@@ -7,10 +7,12 @@ import streamlit as st
 from pathlib import Path
 import tempfile
 from core.xlsx_builder import build_synthese_xlsx
+from core.styles import inject_css, page_header
 
 st.set_page_config(page_title="Synthèse XLSX", page_icon="📊", layout="wide")
+inject_css()
 
-st.title("📊 Étape 3 — Génération de la synthèse Excel")
+page_header("📊 Synthèse XLSX", "Conversion du document Word en fichier Excel")
 
 st.markdown("""
 Cette page convertit le fichier **synthese.docx** (généré à l'étape 2) 
