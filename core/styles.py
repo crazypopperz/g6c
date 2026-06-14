@@ -101,3 +101,5 @@ def page_header(title: str, subtitle: str = "", icon: str = ""):
         {"<p>" + subtitle + "</p>" if subtitle else ""}
     </div>
     """, unsafe_allow_html=True)
+# Alias pour compatibilité
+inject_css = inject_styles
