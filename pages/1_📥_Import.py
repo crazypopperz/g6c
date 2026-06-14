@@ -8,8 +8,8 @@ Deux colonnes :
 import streamlit as st
 from pathlib import Path
 import tempfile, os
-from dotenv import load_dotenv
-load_dotenv(Path(__file__).parent.parent / ".env")
+# Pas besoin de charger .env sur Streamlit Cloud
+# Les variables sont déjà dans os.environ
 
 from utils.session import init_session, get, set as sset, reset_from
 import utils.toast as toast
