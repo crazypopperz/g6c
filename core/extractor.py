@@ -16,11 +16,22 @@ from core.models import Eleve, Sexe, Niveau, TypeAide
 # ─── Client ───────────────────────────────────────────────────────────────────
 
 def _client() -> Mistral:
-    from dotenv import load_dotenv
-    load_dotenv(Path(__file__).parent.parent / ".env")
-    key = os.environ.get("MISTRAL_API_KEY", "")
+    import streamlit as st
+    # Essayer d'abord les secrets Streamlit Cloud
+    try:
+        key = st.secrets.get("MISTRAL_API_KEY", "")
+    except Exception:
+        key = ""
+    
+    # Fallback sur .env pour le développement local
     if not key:
-        raise EnvironmentError("MISTRAL_API_KEY non définie.")
+        from dotenv import load_dotenv
+        load_dotenv(Path(__file__).parent.parent / ".env")
+        key = os.environ.get("MISTRAL_API_KEY", "")
+    
+    if not key:
+        raise EnvironmentError("MISTRAL_API_KEY non définie (ni dans secrets, ni dans .env).")
+    
     return Mistral(api_key=key)
 
 
