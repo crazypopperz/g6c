@@ -202,3 +202,12 @@ with col3:
     st.metric("Élèves fusionnés", len(eleves) if eleves else 0)
 with col4:
     st.metric("Classes constituées", len(classes) if classes else 0)
+
+st.divider()
+st.markdown("### 🔄 Réinitialisation")
+st.caption("Videz toutes les données pour recommencer depuis zéro.")
+
+if st.button("🗑️ Reset complet de la session", type="secondary"):
+    from utils.session import reset_all
+    reset_all()
+    st.rerun()

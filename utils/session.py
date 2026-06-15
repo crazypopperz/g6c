@@ -62,3 +62,9 @@ def reset_from(etape: int) -> None:
     if etape <= 4:
         st.session_state["config_repartition"] = None
         st.session_state["classes_finales"] = []
+
+def reset_all() -> None:
+    """Réinitialise TOUTES les données de session."""
+    for key, default in KEYS_DEFAULTS.items():
+        st.session_state[key] = default
+    st.toast("🔄 Session réinitialisée", icon="🔄")

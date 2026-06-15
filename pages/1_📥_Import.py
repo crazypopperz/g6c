@@ -69,7 +69,28 @@ with col_gauche:
                 try:
                     texte = parse_file(tmp_path)
                     progress.progress((i + 0.5) / len(nouveaux), text=f"Extraction : {fichier.name}…")
-                    eleves = extract_from_text(texte, source_fichier=fichier.name)
+                    nouveaux_eleves = extract_from_text(texte, source_fichier=fichier.name)
+                    
+                    # VÉRIFICATION DES DOUBLONS
+                    eleves_existants = {
+                        f"{e.nom.upper()} {e.prenom.upper()}"
+                        for comm in commissions
+                        for e in comm.eleves
+                    }
+                    
+                    eleves_uniques = []
+                    doublons = 0
+                    for e in nouveaux_eleves:
+                        identifiant = f"{e.nom.upper()} {e.prenom.upper()}"
+                        if identifiant not in eleves_existants:
+                            eleves_uniques.append(e)
+                            eleves_existants.add(identifiant)
+                        else:
+                            doublons += 1
+                    
+                    if doublons > 0:
+                        st.warning(f"️ {doublons} élève(s) déjà existant(s) ignoré(s) dans {fichier.name}")
+                    
                     meta_lines = {
                         line.split(":")[0].strip(): ":".join(line.split(":")[1:]).strip()
                         for line in texte.splitlines()
@@ -78,12 +99,12 @@ with col_gauche:
                     commission = EcoleCommission(
                         nom_ecole      = meta_lines.get("ECOLE", fichier.name),
                         commune        = meta_lines.get("COMMUNE", ""),
-                        eleves         = eleves,
+                        eleves         = eleves_uniques,
                         fichier_source = fichier.name,
                     )
                     commissions.append(commission)
                     deja_importes.append(fichier.name)
-                    toast.fichier_importe(fichier.name, len(eleves))
+                    toast.fichier_importe(fichier.name, len(eleves_uniques))
                 except Exception as exc:
                     erreurs.append(f"{fichier.name} : {exc}")
                     toast.erreur(f"Échec sur {fichier.name}")
