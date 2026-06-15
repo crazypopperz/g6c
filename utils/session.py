@@ -64,7 +64,10 @@ def reset_from(etape: int) -> None:
         st.session_state["classes_finales"] = []
 
 def reset_all() -> None:
-    """Réinitialise TOUTES les données de session."""
-    for key, default in KEYS_DEFAULTS.items():
-        st.session_state[key] = default
+    """Réinitialise TOUTES les données de session en supprimant les clés."""
+    for key in KEYS_DEFAULTS.keys():
+        if key in st.session_state:
+            del st.session_state[key]
+    # Réinitialise avec les valeurs par défaut
+    init_session()
     st.toast("🔄 Session réinitialisée", icon="🔄")

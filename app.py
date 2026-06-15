@@ -203,11 +203,15 @@ with col3:
 with col4:
     st.metric("Classes constituées", len(classes) if classes else 0)
 
+# ── Bouton Reset ─────────────────────────────────────────────────────────────
 st.divider()
-st.markdown("### 🔄 Réinitialisation")
-st.caption("Videz toutes les données pour recommencer depuis zéro.")
+col_reset, col_info = st.columns([1, 3])
 
-if st.button("🗑️ Reset complet de la session", type="secondary"):
-    from utils.session import reset_all
-    reset_all()
-    st.rerun()
+with col_reset:
+    if st.button("🗑️ Reset", type="secondary", use_container_width=True):
+        from utils.session import reset_all
+        reset_all()
+        st.rerun()
+
+with col_info:
+    st.caption("Videz toutes les données pour recommencer depuis zéro.")
